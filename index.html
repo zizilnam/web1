@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB1 - HTML</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src = "color.js"></script>
+  <script>
+  window.fbAsyncInit = function() {
+   FB.init({
+     appId      : '361941511484003',
+     cookie     : true,
+     xfbml      : true,
+     version    : 'v8.0'
+   });
+     FB.getLoginStatus(function(response) {
+   statusChangeCallback(response);
+});
+   };
+
+   (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+</head>
+<body>
+  <input  type ="button" value = "night" onclick =  "ndhandler(this);">
+  <h1><a href = "index.html">WEB</a></h1>
+  <div id="grid">
+  <ul>
+    <!-- <li><a href = "#!html" onclick ="
+      fetchpage('html')">1. HTML</a></li>
+    <li> <a href = "#!css" onclick ="
+      fetchpage('css')">2. CSS</a></li>
+    <li><a href = "#!html" onclick ="
+      fetchpage('JavaScript')">3. JavaScript</a></li> -->
+  </ul>
+  <article id = "class">
+  </article>
+  </div>
+
+  <script>
+    function fetchpage(name){
+      fetch(name).then(function(response){
+        response.text().then(function(text){
+          document.querySelector('#class').innerHTML= text;
+        })
+      })
+    }
+
+  if(location.hash){
+    fetchpage(location.hash.substr(2));
+  } else {
+    fetchpage('welcome');
+  }
+
+    fetch('list').then(function(response){
+      response.text().then(function(text){
+        var items = text.split(',');
+        var i = 0;
+        var tags = '';
+        while(i<items.length){
+        var item = items[i];
+        item = item.trim();
+        var tag =  '<li><a href = "#!'+item+'"  onclick ="fetchpage(\''+item+'\')">'+item+'</a></li>';
+        tags = tags + tag;
+        i = i +1;
+      }
+        document.querySelector('#grid ul').innerHTML= tags;
+      })
+    })
+  </script>
+</body>
+</html>
